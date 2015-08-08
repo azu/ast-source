@@ -2,9 +2,10 @@
 "use strict";
 import {ParserTypes,findParserType} from "./find-parser"
 import esprima from "esprima"
-// FIXME: why import wrong for espower-babel?
+// FIXME: why wrong import for espower-babel?
 const babel = require("babel-core");
 import acornToEsprima from "./acorn-to-esprima"
+var debug = require("debug")("ASTSource");
 function attachComments(ast, comments, tokens) {
     if (comments.length) {
         var firstComment = comments[0];
@@ -64,6 +65,7 @@ export default class ASTParser {
                 this.type = type
             }
         }
+        debug("ParserType: %s", this.type);
     }
 
     /**
