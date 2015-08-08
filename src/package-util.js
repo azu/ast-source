@@ -30,7 +30,6 @@ export function findPackageDir(paths) {
 export function getPackageJSON(paths) {
     var dir = findPackageDir(paths);
     if (dir) {
-        console.log(dir);
         return require(path.resolve(dir, "package.json"));
     } else {
         return null;
