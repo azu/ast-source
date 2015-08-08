@@ -10,7 +10,9 @@ On purpose make you focus to develop AST transforming function.
 
 ## Usage
 
-See [example](./example) 
+See [example](./example).
+ 
+Run `npm test` on `example/`
 
 ```js
 // LICENSE : MIT
