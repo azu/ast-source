@@ -13,11 +13,16 @@
   },
   "version": "1.0.0",
   "description": "AST helper to transform source code.",
-  "main": "index.js",
+  "main": "lib/ASTSource.js",
+  "files": [
+    "lib"
+  ],
   "directories": {
     "test": "test"
   },
   "scripts": {
+    "build": "babel src --out-dir lib --source-maps",
+    "watch": "babel src --out-dir lib --watch --source-maps",
     "test": "mocha"
   },
   "keywords": [
@@ -27,7 +32,7 @@
     "source-map"
   ],
   "dependencies": {
-    "babel-core": "^5.8.21",
+    "babel-core": "^5.0",
     "escodegen": "^1.6.1",
     "esprima": "^2.5.0",
     "espurify": "^1.3.0",
@@ -35,7 +40,7 @@
     "path-is-absolute": "^1.0.0"
   },
   "devDependencies": {
-    "babel": "^5.8.21",
+    "babel": "^5.0",
     "comment-to-assert": "^1.0.1",
     "espower-babel": "^3.2.0",
     "mocha": "^2.2.5",
