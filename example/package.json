@@ -1,0 +1,19 @@
+{
+  "name": "example",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm rm ast-source && npm i && babel-node example.js"
+  },
+  "author": "azu",
+  "license": "MIT",
+  "dependencies": {
+    "ast-source": "file:..",
+    "convert-source-map": "^1.1.1",
+    "estraverse": "^4.1.0"
+  },
+  "devDependencies": {
+    "babel": "^5.8.21"
+  }
+}

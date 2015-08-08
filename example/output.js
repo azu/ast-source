@@ -1,0 +1,2 @@
+var a = 42;
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4vaW5wdXQuanMiXSwibmFtZXMiOlsiYSJdLCJtYXBwaW5ncyI6IkFBQUEsSUFBSUEsQ0FBQSxHLEVBQUoiLCJzb3VyY2VzQ29udGVudCI6WyJ2YXIgYSA9IDE7Il19
