@@ -15,11 +15,8 @@ See [example](./example).
 Run `npm test` on `example/`
 
 ```js
-// LICENSE : MIT
-"use strict";
 import ASTSource from "ast-source"
 import estraverse from "estraverse"
-import convert from "convert-source-map"
 import fs from "fs"
 
 function transform(AST) {
@@ -42,10 +39,9 @@ var source = new ASTSource(fs.readFileSync("./input.js", "utf-8"), {
 });
 var output = source.transform(transform).output();
 console.log(output.code);// => "var a = 42;"
-console.dir(output.map.toString());// => source map
-var comment = convert.fromObject(output.map).toComment();
-fs.writeFileSync("./output.js", output.code + "\n" + comment, "utf-8");
-// input.js -> output.js with sourcemap
+console.dir(output.map.toString()); // => source map
+fs.writeFileSync("./output.js", output.codeWithMap, "utf-8");
+
 ```
 
 ## Tests
