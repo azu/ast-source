@@ -10,7 +10,6 @@
   "license": "MIT",
   "dependencies": {
     "ast-source": "file:..",
-    "convert-source-map": "^1.1.1",
     "estraverse": "^4.1.0"
   },
   "devDependencies": {

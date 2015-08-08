@@ -1,5 +1,6 @@
 import assert from "power-assert"
 import ASTSource from "../src/ASTSource"
+import ASTOutput from "../src/ASTOuput"
 import {ParserTypes} from "../src/ASTSource"
 import {toAssertFromAST} from "comment-to-assert"
 
@@ -73,8 +74,7 @@ describe("ASTSource", () => {
                 filePath: "file.js"
             });
             var result = source.output();
-            assert(result.code != null);
-            assert(result.map != null);
+            assert(result instanceof ASTOutput);
         });
     });
 });

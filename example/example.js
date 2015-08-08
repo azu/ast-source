@@ -2,7 +2,6 @@
 "use strict";
 import ASTSource from "ast-source"
 import estraverse from "estraverse"
-import convert from "convert-source-map"
 import fs from "fs"
 
 function transform(AST) {
