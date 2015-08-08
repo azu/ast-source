@@ -1,6 +1,7 @@
 // LICENSE : MIT
 "use strict";
 import {getPackageJSON} from "./package-util"
+import ObjectAssign from "object-assign"
 export const ParserTypes = {
     // https://github.com/babel/babel/tree/master/packages/babylon aka. using by Babel
     "Babylon": "Babylon",
@@ -24,8 +25,9 @@ export function findParserType() {
     if (!pkg) {
         return ParserTypes.Unknown;
     }
-    var isBabel = pkg["dependencies"].some(isBabylon) || pkg["devDependencies"].some(isBabylon);
-    if(isBabel) {
+    var dependencies = ObjectAssign({}, pkg["dependencies"], pkg["devDependencies"]);
+    var isBabel = isBabylon(dependencies);
+    if (isBabel) {
         return ParserTypes.Babylon;
     }
     return ParserTypes.Unknown;

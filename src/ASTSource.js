@@ -7,6 +7,7 @@ import espurify from"espurify"
 import ASTParser from "./ASTParser"
 import ObjectAssign from "object-assign"
 export {ParserTypes} from "./find-parser"
+var debug = require("debug")("ASTSource");
 /**
  * @type {Object} outputObject
  * @property {string} outputObject.code
@@ -45,6 +46,7 @@ export default class ASTSource {
         this.parser = new ASTParser(this.options);
         /** @type {Object} AST object */
         this.value = this.parse(this.code);
+        debug("options: %o", this.options);
     }
 
     /**
@@ -60,7 +62,7 @@ export default class ASTSource {
     }
 
     _sourceCodePath() {
-        return adjustFilePath(this.options.filepath, this.options.sourceRoot)
+        return adjustFilePath(this.options.filePath, this.options.sourceRoot)
     }
 
     /**

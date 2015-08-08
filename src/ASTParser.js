@@ -93,6 +93,7 @@ export default class ASTParser {
      */
     _parseByEsprima(code, options) {
         var esprimaOptions = {
+            source: options.filePath,
             loc: options.loc,
             range: options.range,
             comment: options.comment,
@@ -105,6 +106,7 @@ export default class ASTParser {
 
     _parseByBabel(code, options) {
         var babylonOptions = {
+            sourceFile: options.filePath,
             locations: options.loc,
             ranges: options.range
         };

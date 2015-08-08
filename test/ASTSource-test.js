@@ -73,8 +73,8 @@ describe("ASTSource", () => {
                 filePath: "file.js"
             });
             var result = source.output();
-            assert(typeof result.map !== "undefined");
-            assert(typeof result.code !== "undefined");
+            assert(result.code != null);
+            assert(result.map != null);
         });
     });
 });
