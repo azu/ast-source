@@ -5,14 +5,10 @@ import {adjustFilePath} from "./filepath-util"
 import {generate} from "escodegen"
 import espurify from"espurify"
 import ASTParser from "./ASTParser"
+import ASTOutput from "./ASTOuput"
 import ObjectAssign from "object-assign"
 export {ParserTypes} from "./find-parser"
 var debug = require("debug")("ASTSource");
-/**
- * @type {Object} outputObject
- * @property {string} outputObject.code
- * @property {Object} outputObject.map
- */
 /**
  * @namespace
  * @type {Object} ASTSourceOptions
@@ -82,7 +78,7 @@ export default class ASTSource {
     }
 
     /**
-     * @returns {outputObject}
+     * @returns {ASTOutput}
      */
     output() {
         var generateOption = {
@@ -90,6 +86,7 @@ export default class ASTSource {
             sourceContent: this.code,
             sourceMapWithCode: true
         };
-        return generate(this.value, generateOption);
+        var generatedObject = generate(this.value, generateOption);
+        return new ASTOutput(generatedObject.code, generatedObject.map);
     }
 }
