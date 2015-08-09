@@ -4,11 +4,104 @@ AST helper to transform source code.
 
 On purpose make you focus to develop AST transforming function.
 
+
 ## Installation
 
     npm install ast-source
 
+## Feature
+
+- Automatically select JavaScript parser like esprima or babel(babylon)
+    - It make you focus to develop AST transforming function.
+- SourceMap support is first class.
+- Always get clean AST if you want.
+    - AST transforming function pollute AST's meta info(`range`, `loc` etc..).
+    - `ASTSource#transformStrict` provide always clean AST by options.
+
 ## Usage
+
+### API
+
+#### ASTSource(code, options)
+
+ASTSource's input is source code, output is `ASTOutput`.
+
+```js
+var source = new ASTSource(code, options)
+```
+
+All options are optional. often set `filePath` as options.
+
+```js
+/**
+ * @namespace
+ * @type {Object} ASTSourceOptions
+ * @property {string} ASTSourceOptions.filePath? path to source code
+ * @property {string} ASTSourceOptions.sourceRoot? source root path to source code
+ * @property {parserType} ASTSourceOptions.parserType? what parser is used
+ * @property {boolean} ASTSourceOptions.esprimaTokens? tokens
+ * @property {boolean} ASTSourceOptions.range? range
+ * @property {boolean} ASTSourceOptions.loc? location
+ * @property {boolean} ASTSourceOptions.comment?
+ */
+const defaultOptions = {
+    filePath: null,
+    disableSourceMap: false,
+    parserType: null,
+    esprimaTokens: true,
+    loc: true,
+    range: true,
+    comment: true
+};
+```
+
+##### value(): AST
+
+Returns current AST
+
+##### cloneValue(): AST
+
+Return current AST that is [espurify](https://github.com/estools/espurify "espurify")ed.
+
+##### transform(fn)
+
+Transform current AST by `fn`.
+
+```js
+function transformFn(AST){
+   return modify(AST)
+}
+var source = new ASTSource(code, options)
+source.transform(transformFn);
+```
+
+##### transformStrict(fn)
+
+Transform AST by `fn` after healing the AST.
+
+re-calculate `range`, `loc`, `comment` the AST and transform.
+
+##### output(): ASTOutput
+
+Returns `ASTOutput`
+
+#### ASTOutput
+
+ASTOutput's input is source code, output are source code and source-map.
+
+##### code: string
+
+Returns source code of the results.
+
+##### map: Object
+
+Returns source map of the results.
+
+##### codeWithMap: string
+
+Returns source code that include base64ed comment of source map.
+
+### Example
 
 See [example](./example).
  

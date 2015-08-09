@@ -3,16 +3,15 @@
 import assert from "assert"
 import ASTParser from "./ASTParser"
 import ASTGenerator from "./ASTGenerator"
-import ASTOutput from "./ASTOuput"
+import ASTOutput from "./ASTOutput"
 import ObjectAssign from "object-assign"
 export {ParserTypes} from "./find-parser"
 import ASTDataContainer from "./ASTDataContainer"
 export {ASTDataContainer}
 var debug = require("debug")("ASTSource");
 /**
- * @namespace
  * @type {Object} ASTSourceOptions
- * @property {string} ASTSourceOptions.filePath path to source code
+ * @property {string} ASTSourceOptions.filePath? path to source code
  * @property {string} ASTSourceOptions.sourceRoot? source root path to source code
  * @property {parserType} ASTSourceOptions.parserType? what parser is used
  * @property {boolean} ASTSourceOptions.esprimaTokens? tokens
@@ -83,7 +82,7 @@ export default class ASTSource {
     }
 
     /**
-     * transform AST before healing the AST.
+     * transform AST after healing the AST.
      * @param {function} transformFn
      */
     transformStrict(transformFn) {

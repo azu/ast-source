@@ -1,7 +1,7 @@
 // LICENSE : MIT
 "use strict";
 import assert from "assert"
-import espurify from"espurify"
+import espurify from "espurify"
 import {healingAST} from "./ast-healing-util"
 /**
  * ASTDataContainer has AST as `value` and transform `value`
