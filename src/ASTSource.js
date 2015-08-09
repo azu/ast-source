@@ -21,6 +21,8 @@ var debug = require("debug")("ASTSource");
  * @property {boolean} ASTSourceOptions.comment?
  */
 const defaultOptions = {
+    filePath: null,
+    disableSourceMap: false,
     parserType: null,
     esprimaTokens: true,
     loc: true,
@@ -31,14 +33,18 @@ export function validateCode(code) {
     assert(typeof code !== "undefined");
 }
 export function validateOptions(options) {
-    assert(typeof options.filePath === "string");
+    if (!options.disableSourceMap) {
+        assert(typeof options.filePath === "string",
+            "`options.filePath` is required for sourcemap support"
+        );
+    }
 }
 export default class ASTSource {
     constructor(code, options) {
-        validateCode(code);
-        validateOptions(options);
         this.code = code;
         this.options = ObjectAssign({}, defaultOptions, options);
+        validateCode(code);
+        validateOptions(this.options);
         this.parser = new ASTParser(this.options);
         /** @type {Object} AST object */
         this.value = this.parse(this.code);
@@ -81,12 +87,13 @@ export default class ASTSource {
      * @returns {ASTOutput}
      */
     output() {
-        var generateOption = {
+        var additionalOptions = this.options.disableSourceMap ? {} : {
             sourceMap: this._sourceCodePath(),
             sourceContent: this.code,
             sourceMapWithCode: true
         };
-        var generatedObject = generate(this.value, generateOption);
-        return new ASTOutput(generatedObject.code, generatedObject.map);
+        var generateOption = ObjectAssign({sourceMapWithCode: true}, additionalOptions);
+        var {code, map} =  generate(this.value, generateOption);
+        return new ASTOutput(code, map);
     }
 }

@@ -11,11 +11,19 @@ describe("ASTSource", () => {
                 new ASTSource("var a;");
             }, Error);
         });
-        it("should pass options that has `filePath`", function () {
+        it("should require `filePath`", function () {
             var source = new ASTSource("var a;", {
                 filePath: "file.js"
             });
             assert(source instanceof ASTSource);
+        });
+        context("when `disableSourceMap` is true", function () {
+            it("should not require `filePath`", function () {
+                var source = new ASTSource("var a;", {
+                    disableSourceMap: true
+                });
+                assert(source instanceof ASTSource);
+            });
         });
     });
 
@@ -75,6 +83,18 @@ describe("ASTSource", () => {
             });
             var result = source.output();
             assert(result instanceof ASTOutput);
+        });
+        context("when `disableSourceMap` is true", function () {
+            it("output should not has `map` property", function () {
+                var source = new ASTSource("var a;", {
+                    disableSourceMap: true
+                });
+                var output = source.output();
+                console.log(output);
+                assert(typeof output.code !== "undefined");
+                assert(output.map == null);
+                assert(output.codeWithMap == null);
+            });
         });
     });
 });
