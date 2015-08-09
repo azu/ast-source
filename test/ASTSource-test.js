@@ -33,7 +33,7 @@ describe("ASTSource", () => {
                 filePath: "file.js",
                 parserType: ParserTypes.Babylon
             });
-            assert(source.value);
+            assert(source.value());
             var AST = source.parse("var b");
             assert(typeof AST !== "undefined");
         });
@@ -42,7 +42,7 @@ describe("ASTSource", () => {
                 filePath: "file.js",
                 parserType: ParserTypes.Babylon
             });
-            assert(source.value);
+            assert(source.value());
         });
     });
     describe("#transform", function () {

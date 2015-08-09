@@ -3,11 +3,12 @@
 import assert from "assert"
 import {adjustFilePath} from "./filepath-util"
 import {generate} from "escodegen"
-import espurify from"espurify"
 import ASTParser from "./ASTParser"
 import ASTOutput from "./ASTOuput"
 import ObjectAssign from "object-assign"
 export {ParserTypes} from "./find-parser"
+import ASTDataContainer from "./ASTContainer"
+export {ASTDataContainer}
 var debug = require("debug")("ASTSource");
 /**
  * @namespace
@@ -47,8 +48,12 @@ export default class ASTSource {
         validateOptions(this.options);
         this.parser = new ASTParser(this.options);
         /** @type {Object} AST object */
-        this.value = this.parse(this.code);
+        this.dataContainer = new ASTDataContainer(this.parse(this.code));
         debug("options: %o", this.options);
+    }
+
+    value() {
+        return this.dataContainer.value;
     }
 
     /**
@@ -56,7 +61,7 @@ export default class ASTSource {
      * @return {Object}
      */
     cloneValue() {
-        return espurify(this.value);
+        return this.dataContainer.cloneValue();
     }
 
     parse(code) {
@@ -77,9 +82,7 @@ export default class ASTSource {
      * source.transform(transformFn);
      */
     transform(transformFn) {
-        var result = transformFn(this.value);
-        assert(result != null && typeof result === "object", "transform function should not return null result");
-        this.value = result;
+        this.dataContainer.transform(transformFn);
         return this;
     }
 
@@ -89,14 +92,14 @@ export default class ASTSource {
     output() {
         // when sourcemap is disable, only generate code
         if (this.options.disableSourceMap) {
-            return new ASTOutput(generate(this.value, generateOption));
+            return new ASTOutput(generate(this.dataContainer.value, generateOption));
         }
         var generateOption = {
             sourceMap: this._sourceCodePath(),
             sourceContent: this.code,
             sourceMapWithCode: true
         };
-        var {code, map} =  generate(this.value, generateOption);
+        var {code, map} =  generate(this.dataContainer.value, generateOption);
         return new ASTOutput(code, map);
     }
 }
