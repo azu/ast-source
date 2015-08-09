@@ -5,7 +5,7 @@ import espurify from"espurify"
 /**
  * ASTDataContainer has AST as `value` and transform `value`
  */
-export default class ASTPipe {
+export default class ASTDataContainer {
     constructor(ast) {
         this.value = ast;
     }

@@ -7,7 +7,7 @@ import ASTParser from "./ASTParser"
 import ASTOutput from "./ASTOuput"
 import ObjectAssign from "object-assign"
 export {ParserTypes} from "./find-parser"
-import ASTDataContainer from "./ASTContainer"
+import ASTDataContainer from "./ASTDataContainer"
 export {ASTDataContainer}
 var debug = require("debug")("ASTSource");
 /**
@@ -92,9 +92,12 @@ export default class ASTSource {
     output() {
         // when sourcemap is disable, only generate code
         if (this.options.disableSourceMap) {
-            return new ASTOutput(generate(this.dataContainer.value, generateOption));
+            return new ASTOutput(generate(this.dataContainer.value, {
+                comment: this.options.comment
+            }));
         }
         var generateOption = {
+            comment: this.options.comment,
             sourceMap: this._sourceCodePath(),
             sourceContent: this.code,
             sourceMapWithCode: true

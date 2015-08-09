@@ -1,4 +1,5 @@
 import assert from "power-assert"
+import astEqual from "ast-equal"
 import ASTSource from "../src/ASTSource"
 import ASTOutput from "../src/ASTOuput"
 import {ParserTypes} from "../src/ASTSource"
@@ -78,11 +79,13 @@ describe("ASTSource", () => {
     });
     describe("#output", function () {
         it("should return Object", function () {
-            var source = new ASTSource("var a;", {
+            var code = "var a; // comment";
+            var source = new ASTSource(code, {
                 filePath: "file.js"
             });
             var result = source.output();
             assert(result instanceof ASTOutput);
+            astEqual(result.code, code);
         });
         context("when `disableSourceMap` is true", function () {
             it("output should not has `map` property", function () {
