@@ -15,7 +15,8 @@
   "description": "AST helper to transform source code.",
   "main": "lib/ASTSource.js",
   "files": [
-    "lib"
+    "lib",
+    "src"
   ],
   "directories": {
     "test": "test"
