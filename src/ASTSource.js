@@ -1,9 +1,8 @@
 // LICENSE : MIT
 "use strict";
 import assert from "assert"
-import {adjustFilePath} from "./filepath-util"
-import {generate} from "escodegen"
 import ASTParser from "./ASTParser"
+import ASTGenerator from "./ASTGenerator"
 import ASTOutput from "./ASTOuput"
 import ObjectAssign from "object-assign"
 export {ParserTypes} from "./find-parser"
@@ -47,6 +46,7 @@ export default class ASTSource {
         validateCode(code);
         validateOptions(this.options);
         this.parser = new ASTParser(this.options);
+        this.generator = new ASTGenerator(this.options);
         /** @type {Object} AST object */
         this.dataContainer = new ASTDataContainer(this.parse(this.code));
         debug("options: %o", this.options);
@@ -66,10 +66,6 @@ export default class ASTSource {
 
     parse(code) {
         return this.parser.parse(code);
-    }
-
-    _sourceCodePath() {
-        return adjustFilePath(this.options.filePath, this.options.sourceRoot)
     }
 
     /**
@@ -92,17 +88,11 @@ export default class ASTSource {
     output() {
         // when sourcemap is disable, only generate code
         if (this.options.disableSourceMap) {
-            return new ASTOutput(generate(this.dataContainer.value, {
-                comment: this.options.comment
-            }));
+            return new ASTOutput(this.generator.generateCode(this.dataContainer.value));
         }
-        var generateOption = {
-            comment: this.options.comment,
-            sourceMap: this._sourceCodePath(),
-            sourceContent: this.code,
-            sourceMapWithCode: true
-        };
-        var {code, map} =  generate(this.dataContainer.value, generateOption);
+        var {code, map} =  this.generator.generateCodeWithMap(this.dataContainer.value, {
+            sourceContent: this.code
+        });
         return new ASTOutput(code, map);
     }
 }
