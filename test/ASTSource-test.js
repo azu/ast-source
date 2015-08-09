@@ -91,7 +91,6 @@ describe("ASTSource", () => {
                     disableSourceMap: true
                 });
                 var output = source.output();
-                console.log(output);
                 assert(typeof output.code !== "undefined");
                 assert(output.map == null);
                 assert.equal(output.codeWithMap, code);
