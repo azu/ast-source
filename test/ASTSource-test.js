@@ -86,14 +86,15 @@ describe("ASTSource", () => {
         });
         context("when `disableSourceMap` is true", function () {
             it("output should not has `map` property", function () {
-                var source = new ASTSource("var a;", {
+                var code = "var a;";
+                var source = new ASTSource(code, {
                     disableSourceMap: true
                 });
                 var output = source.output();
                 console.log(output);
                 assert(typeof output.code !== "undefined");
                 assert(output.map == null);
-                assert(output.codeWithMap == null);
+                assert.equal(output.codeWithMap, code);
             });
         });
     });
