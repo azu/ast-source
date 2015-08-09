@@ -87,12 +87,15 @@ export default class ASTSource {
      * @returns {ASTOutput}
      */
     output() {
-        var additionalOptions = this.options.disableSourceMap ? {} : {
+        // when sourcemap is disable, only generate code
+        if (this.options.disableSourceMap) {
+            return new ASTOutput(generate(this.value, generateOption));
+        }
+        var generateOption = {
             sourceMap: this._sourceCodePath(),
             sourceContent: this.code,
             sourceMapWithCode: true
         };
-        var generateOption = ObjectAssign({sourceMapWithCode: true}, additionalOptions);
         var {code, map} =  generate(this.value, generateOption);
         return new ASTOutput(code, map);
     }
