@@ -17,7 +17,7 @@ export default class ASTOutput {
 
     get codeWithMap() {
         if (!this._map) {
-            return null;
+            return this._code;
         }
         return this.code + "\n" + convert.fromObject(this.map).toComment();
     }
