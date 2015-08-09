@@ -73,12 +73,21 @@ export default class ASTSource {
      * @param {function} transformFn
      * @example
      * function transformFn(AST){
-     *  return modify(AST)
+     *    return modify(AST)
      * }
      * source.transform(transformFn);
      */
     transform(transformFn) {
         this.dataContainer.transform(transformFn);
+        return this;
+    }
+
+    /**
+     * transform AST before healing the AST.
+     * @param {function} transformFn
+     */
+    transformStrict(transformFn) {
+        this.dataContainer.transformStrict(transformFn, this.options);
         return this;
     }
 
