@@ -1,7 +1,7 @@
 import assert from "power-assert"
 import astEqual from "ast-equal"
 import ASTSource from "../src/ASTSource"
-import ASTOutput from "../src/ASTOuput"
+import ASTOutput from "../src/ASTOutput"
 import {ParserTypes} from "../src/ASTSource"
 import {toAssertFromAST} from "comment-to-assert"
 
