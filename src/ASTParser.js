@@ -108,10 +108,12 @@ export default class ASTParser {
         var babylonOptions = {
             sourceFile: options.filePath,
             locations: options.loc,
-            ranges: options.range
+            ranges: options.range,
+            ecmaVersion: 6,
         };
         var comments = babylonOptions.onComment = [];
         var tokens = babylonOptions.onToken = [];
+
         var ast = babel.parse(code, babylonOptions);
         if (options.comment) {
             // add comments
@@ -128,6 +130,7 @@ export default class ASTParser {
         // acorn to esprima
         if (options.esprimaTokens) {
             // convert tokens
+            tokens.pop();
             ast.tokens = acornToEsprima.toTokens(tokens);
             attachComments(ast, comments, ast.tokens);
 

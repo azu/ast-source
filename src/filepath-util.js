@@ -18,7 +18,6 @@ export function hasExistDirectory(dirPath) {
     try {
         // Query the entry
         var stats = fs.lstatSync(dirPath);
-
         // Is it a directory?
         if (stats.isDirectory()) {
             return true
