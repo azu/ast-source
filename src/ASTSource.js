@@ -8,6 +8,8 @@ import ObjectAssign from "object-assign"
 export {ParserTypes} from "./find-parser"
 import ASTDataContainer from "./ASTDataContainer"
 export {ASTDataContainer}
+import espurify from "espurify"
+
 var debug = require("debug")("ASTSource");
 /**
  * @type {Object} ASTSourceOptions
@@ -95,10 +97,13 @@ export default class ASTSource {
      */
     output() {
         // when sourcemap is disable, only generate code
+        var comments = this.dataContainer.value.comments;
+        var ast = espurify(this.dataContainer.value);
+        ast.comments = comments;
         if (this.options.disableSourceMap) {
-            return new ASTOutput(this.generator.generateCode(this.dataContainer.value));
+            return new ASTOutput(this.generator.generateCode(ast));
         }
-        var {code, map} =  this.generator.generateCodeWithMap(this.dataContainer.value, {
+        var {code, map} =  this.generator.generateCodeWithMap(ast, {
             sourceContent: this.code
         });
         return new ASTOutput(code, map);

@@ -2,7 +2,7 @@
 "use strict";
 import path from "path"
 import assert from "assert"
-import {hasExistDirectory} from "./filepath-util"
+import pathExists from "path-exists"
 var packageName = require("../package.json").name;
 
 export function findPackageDir(paths) {
@@ -11,7 +11,7 @@ export function findPackageDir(paths) {
     }
     for (var i = 0; i < paths.length; ++i) {
         var node_modulesPath = paths[i];
-        if (!hasExistDirectory(node_modulesPath)) {
+        if (!pathExists.sync(node_modulesPath)) {
             continue;
         }
         var dir = path.dirname(node_modulesPath);
@@ -28,6 +28,10 @@ export function findPackageDir(paths) {
  * @returns {object|null}
  */
 export function getPackageJSON(paths) {
+    var processPackageJSON = path.join(process.cwd(), "package.json");
+    if (pathExists.sync(processPackageJSON)) {
+        return require(processPackageJSON);
+    }
     var dir = findPackageDir(paths);
     if (dir) {
         return require(path.resolve(dir, "package.json"));
