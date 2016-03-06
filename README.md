@@ -18,6 +18,12 @@ On purpose make you focus to develop AST transforming function.
     - AST transforming function pollute AST's meta info(`range`, `loc` etc..).
     - `ASTSource#transformStrict` provide always clean AST by options.
 
+## Example
+
+- [azu/comment-to-assert: convert single line comment to assert.](https://github.com/azu/comment-to-assert)
+- [azu/power-doctest: JavaScript: doctest + power-assert.](https://github.com/azu/power-doctest)
+
+
 ## Usage
 
 ### API
