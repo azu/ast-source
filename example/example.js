@@ -1,8 +1,9 @@
 // LICENSE : MIT
 "use strict";
-import ASTSource from "ast-source"
-import estraverse from "estraverse"
-import fs from "fs"
+// TODO: use es6 import/export
+const ASTSource = require("ast-source").default;
+const estraverse = require("estraverse");
+const fs = require("fs");
 
 function transform(AST) {
     var replaced = {

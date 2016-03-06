@@ -4,15 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "npm rm ast-source && npm i && babel-node example.js"
+    "test": "npm rm ast-source && npm i && node example.js"
   },
   "author": "azu",
   "license": "MIT",
   "dependencies": {
     "ast-source": "file:..",
     "estraverse": "^4.1.0"
-  },
-  "devDependencies": {
-    "babel": "^5.8.21"
   }
 }
