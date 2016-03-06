@@ -11,7 +11,7 @@
   "bugs": {
     "url": "https://github.com/azu/ast-source/issues"
   },
-  "version": "1.2.1",
+  "version": "2.0.0",
   "description": "AST helper to transform source code.",
   "main": "lib/ASTSource.js",
   "files": [
