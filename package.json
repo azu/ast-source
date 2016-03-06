@@ -34,21 +34,27 @@
     "source-map"
   ],
   "dependencies": {
-    "babel-core": "^5.0",
+    "acorn-to-esprima": "^2.0.8",
+    "babel-core": "^6.6.5",
+    "babel-generator": "^6.6.5",
+    "babel-traverse": "^6.6.5",
+    "babylon": "^6.6.5",
     "convert-source-map": "^1.1.1",
     "debug": "^2.2.0",
     "escodegen": "^1.6.1",
     "esprima": "^2.5.0",
     "espurify": "^1.3.0",
-    "object-assign": "^3.0.0",
+    "object-assign": "^4.0.1",
     "path-is-absolute": "^1.0.0"
   },
   "devDependencies": {
     "ast-equal": "^1.0.2",
-    "babel": "^5.0",
+    "babel-cli": "^6.6.5",
+    "babel-plugin-add-module-exports": "^0.1.2",
+    "babel-preset-es2015": "^6.6.0",
     "comment-to-assert": "^1.0.1",
-    "espower-babel": "^3.2.0",
+    "espower-babel": "^4.0.1",
     "mocha": "^2.2.5",
-    "power-assert": "^0.11.0"
+    "power-assert": "^1.2.0"
   }
 }

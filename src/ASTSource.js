@@ -5,7 +5,7 @@ import ASTParser from "./ASTParser"
 import ASTGenerator from "./ASTGenerator"
 import ASTOutput from "./ASTOutput"
 import ObjectAssign from "object-assign"
-export {ParserTypes} from "./find-parser"
+export {ParserTypes} from "./utils/find-parser"
 import ASTDataContainer from "./ASTDataContainer"
 export {ASTDataContainer}
 var debug = require("debug")("ASTSource");

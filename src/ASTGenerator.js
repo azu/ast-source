@@ -2,7 +2,9 @@
 "use strict";
 import assert from "assert"
 import {generate} from "escodegen"
-import {adjustFilePath} from "./filepath-util"
+import babelGenerate from 'babel-generator';
+import {adjustFilePath} from "./utils/filepath-util"
+import {ParserTypes, findParserType} from "./utils/find-parser"
 export default class ASTGenerator {
     /**
      * @param {ASTSourceOptions} options
@@ -12,6 +14,8 @@ export default class ASTGenerator {
          * @type {ASTSourceOptions}
          */
         this.options = options;
+        this.type = findParserType(options);
+
     }
 
     _sourceCodePath() {
@@ -24,10 +28,13 @@ export default class ASTGenerator {
      * @returns {string}
      */
     generateCode(AST) {
-        let code = generate(AST, {
-            comment: this.options.comment
-        });
-        return code;
+        if (this.type === ParserTypes.Esprima) {
+            return generate(AST, {
+                comment: this.options.comment
+            });
+        } else if (this.type === ParserTypes.Babylon) {
+            return babelGenerate(AST);
+        }
     }
 
     /**
@@ -38,13 +45,17 @@ export default class ASTGenerator {
      */
     generateCodeWithMap(AST, {sourceContent}) {
         assert(sourceContent != null, "sourceContent is required. `generate(AST, {sourceContent})`");
-        var generateOption = {
-            comment: this.options.comment,
-            sourceMap: this._sourceCodePath(),
-            sourceContent: sourceContent,
-            sourceMapWithCode: true
-        };
-        var {code, map} =  generate(AST, generateOption);
-        return {code, map};
+        if (this.type === ParserTypes.Esprima) {
+            const generateOption = {
+                comment: this.options.comment,
+                sourceMap: this._sourceCodePath(),
+                sourceContent: sourceContent,
+                sourceMapWithCode: true
+            };
+            const {code, map} =  generate(AST, generateOption);
+            return {code, map};
+        } else if (this.type === ParserTypes.Babylon) {
+            return babelGenerate(AST, {}, sourceContent);
+        }
     }
 }

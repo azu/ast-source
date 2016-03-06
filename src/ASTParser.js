@@ -1,10 +1,9 @@
 // LICENSE : MIT
 "use strict";
-import {ParserTypes,findParserType} from "./find-parser"
+import {ParserTypes, findParserType} from "./utils/find-parser"
 import esprima from "esprima"
 // FIXME: why wrong import for espower-babel?
-const babel = require("babel-core");
-import acornToEsprima from "./acorn-to-esprima"
+import {parseToEsprima} from "./babel-parse-to-esprima"
 var debug = require("debug")("ASTSource");
 function attachComments(ast, comments, tokens) {
     if (comments.length) {
@@ -55,16 +54,7 @@ export default class ASTParser {
      */
     constructor(options) {
         this.options = options;
-        // default parser: esprima
-        this.type = ParserTypes.Esprima;
-        if (options.parserType) {
-            this.type = options.parserType
-        } else {
-            let type = findParserType();
-            if (type !== ParserTypes.Unknown) {
-                this.type = type
-            }
-        }
+        this.type = findParserType(options);
         debug("ParserType: %s", this.type);
     }
 
@@ -108,32 +98,29 @@ export default class ASTParser {
         var babylonOptions = {
             sourceFile: options.filePath,
             locations: options.loc,
-            ranges: options.range
+            ranges: options.range,
+            sourceType: options.sourceType || "module",
+            strictMode: true,
+            allowImportExportEverywhere: false, // consistent with espree
+            allowReturnOutsideFunction: true,
+            allowSuperOutsideMethod: true,
+            plugins: [
+                "flow",
+                "jsx",
+                "asyncFunctions",
+                "asyncGenerators",
+                "classConstructorCall",
+                "classProperties",
+                "decorators",
+                "doExpressions",
+                "exponentiationOperator",
+                "exportExtensions",
+                "functionBind",
+                "functionSent",
+                "objectRestSpread",
+                "trailingFunctionCommas"
+            ]
         };
-        var comments = babylonOptions.onComment = [];
-        var tokens = babylonOptions.onToken = [];
-        var ast = babel.parse(code, babylonOptions);
-        if (options.comment) {
-            // add comments
-            for (var i = 0; i < comments.length; i++) {
-                var comment = comments[i];
-                if (comment.type === "CommentBlock") {
-                    comment.type = "Block";
-                } else if (comment.type === "CommentLine") {
-                    comment.type = "Line";
-                }
-            }
-            ast.comments = comments;
-        }
-        // acorn to esprima
-        if (options.esprimaTokens) {
-            // convert tokens
-            ast.tokens = acornToEsprima.toTokens(tokens);
-            attachComments(ast, comments, ast.tokens);
-
-            // transform esprima and acorn divergent nodes
-            acornToEsprima.toAST(ast);
-        }
-        return ast;
+        return parseToEsprima(code, babylonOptions);
     }
 }

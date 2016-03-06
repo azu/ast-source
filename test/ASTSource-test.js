@@ -7,11 +7,6 @@ import {toAssertFromAST} from "comment-to-assert"
 
 describe("ASTSource", () => {
     describe("Constructor", function () {
-        it("throw error on no options", function () {
-            assert.throws(function () {
-                new ASTSource("var a;");
-            }, Error);
-        });
         it("should require `filePath`", function () {
             var source = new ASTSource("var a;", {
                 filePath: "file.js"
@@ -55,6 +50,9 @@ describe("ASTSource", () => {
             source.transform(toAssertFromAST);
             var afterValue = source.cloneValue();
             assert.notDeepEqual(beforeValue, afterValue);
+            var output = source.output();
+            assert(typeof output.code !== "undefined");
+            assert.equal(output.code, `assert.equal(1, 1);`);
         });
         it("should pass AST to transform function", function () {
             var source = new ASTSource("1;// => 1", {

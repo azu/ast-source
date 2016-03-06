@@ -1,7 +1,7 @@
 // LICENSE : MIT
 "use strict";
-import ASTGenerator from "./ASTGenerator"
-import ASTParser from "./ASTParser"
+import ASTGenerator from "./../ASTGenerator"
+import ASTParser from "./../ASTParser"
 /**
  * healing ast with options.
  * ensure valid AST for options.
