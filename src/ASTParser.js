@@ -88,7 +88,8 @@ export default class ASTParser {
             range: options.range,
             comment: options.comment,
             attachComment: options.comment,
-            tokens: options.esprimaTokens
+            tokens: options.esprimaTokens,
+            sourceType: options.sourceType || 'module'
         };
         return esprima.parse(code, esprimaOptions);
     }
