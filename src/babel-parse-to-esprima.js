@@ -3,8 +3,6 @@
 
 const parse = require("babylon").parse;
 const acornToEsprima = require("acorn-to-esprima");
-const tt = require("babylon").tokTypes;
-const traverse = require("babel-traverse").default;
 export function parseToEsprima(code, opts) {
     var comments = (opts.onComment = []);
     var tokens = (opts.onToken = []);

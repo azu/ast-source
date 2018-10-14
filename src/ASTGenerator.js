@@ -2,7 +2,7 @@
 "use strict";
 import assert from "assert";
 import { generate } from "escodegen";
-import babelGenerate from "babel-generator";
+import babelGenerate from "@babel/generator";
 import { adjustFilePath } from "./utils/filepath-util";
 import { ParserTypes, findParserType } from "./utils/find-parser";
 export default class ASTGenerator {
