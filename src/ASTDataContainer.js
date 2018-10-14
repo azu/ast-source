@@ -1,8 +1,8 @@
 // LICENSE : MIT
 "use strict";
-import assert from "assert"
-import espurify from "espurify"
-import {healingAST} from "./utils/ast-healing-util"
+import assert from "assert";
+import espurify from "espurify";
+import { healingAST } from "./utils/ast-healing-util";
 /**
  * ASTDataContainer has AST as `value` and transform `value`
  */
@@ -22,7 +22,7 @@ export default class ASTDataContainer {
     transform(transformFn) {
         const result = transformFn(this.value);
         if (result == null) {
-            throw new Error("transform function should not return null")
+            throw new Error("transform function should not return null");
         }
         this.value = result;
     }

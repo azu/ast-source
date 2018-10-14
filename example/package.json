@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "npm rm ast-source && npm i && node example.js"
+    "test": "rm -rf node_modules/ && npm i && node example.js"
   },
   "author": "azu",
   "license": "MIT",

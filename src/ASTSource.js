@@ -1,13 +1,13 @@
 // LICENSE : MIT
 "use strict";
-import assert from "assert"
-import ASTParser from "./ASTParser"
-import ASTGenerator from "./ASTGenerator"
-import ASTOutput from "./ASTOutput"
-import ObjectAssign from "object-assign"
-export {ParserTypes} from "./utils/find-parser"
-import ASTDataContainer from "./ASTDataContainer"
-export {ASTDataContainer}
+import assert from "assert";
+import ASTParser from "./ASTParser";
+import ASTGenerator from "./ASTGenerator";
+import ASTOutput from "./ASTOutput";
+import ObjectAssign from "object-assign";
+export { ParserTypes } from "./utils/find-parser";
+import ASTDataContainer from "./ASTDataContainer";
+export { ASTDataContainer };
 var debug = require("debug")("ASTSource");
 /**
  * @type {Object} ASTSourceOptions
@@ -33,9 +33,7 @@ export function validateCode(code) {
 }
 export function validateOptions(options) {
     if (!options.disableSourceMap) {
-        assert(typeof options.filePath === "string",
-            "`options.filePath` is required for sourcemap support"
-        );
+        assert(typeof options.filePath === "string", "`options.filePath` is required for sourcemap support");
     }
 }
 export default class ASTSource {
@@ -98,7 +96,7 @@ export default class ASTSource {
         if (this.options.disableSourceMap) {
             return new ASTOutput(this.generator.generateCode(this.dataContainer.value));
         }
-        var {code, map} =  this.generator.generateCodeWithMap(this.dataContainer.value, {
+        var { code, map } = this.generator.generateCodeWithMap(this.dataContainer.value, {
             sourceContent: this.code
         });
         return new ASTOutput(code, map);

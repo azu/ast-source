@@ -1,10 +1,13 @@
 // LICENSE : MIT
 "use strict";
-import {ParserTypes, findParserType} from "./utils/find-parser"
-import esprima from "esprima"
+import { ParserTypes, findParserType } from "./utils/find-parser";
+
+import { parseToEsprima } from "./babel-parse-to-esprima";
 // FIXME: why wrong import for espower-babel?
-import {parseToEsprima} from "./babel-parse-to-esprima"
+const esprima = require("esprima");
+
 var debug = require("debug")("ASTSource");
+
 function attachComments(ast, comments, tokens) {
     if (comments.length) {
         var firstComment = comments[0];
@@ -89,11 +92,10 @@ export default class ASTParser {
             comment: options.comment,
             attachComment: options.comment,
             tokens: options.esprimaTokens,
-            sourceType: options.sourceType || 'module'
+            sourceType: options.sourceType || "module"
         };
         return esprima.parse(code, esprimaOptions);
     }
-
 
     _parseByBabel(code, options) {
         var babylonOptions = {

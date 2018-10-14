@@ -1,6 +1,6 @@
 // LICENSE : MIT
 "use strict";
-import convert from "convert-source-map"
+import convert from "convert-source-map";
 export default class ASTOutput {
     constructor(code, map) {
         this._code = code;
