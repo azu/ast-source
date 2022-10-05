@@ -4,7 +4,7 @@ import { ParserTypes, findParserType } from "./utils/find-parser";
 
 import { parseToEsprima } from "./babel-parse-to-esprima";
 // FIXME: why wrong import for espower-babel?
-const esprima = require("esprima");
+const esprima = require("esprima-next");
 
 var debug = require("debug")("ASTSource");
 
