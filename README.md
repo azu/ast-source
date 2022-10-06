@@ -1,4 +1,4 @@
-# ast-source [![Build Status](https://travis-ci.org/azu/ast-source.svg?branch=master)](https://travis-ci.org/azu/ast-source)
+# ast-source [![Actions Status: test](https://github.com/azu/ast-source/workflows/test/badge.svg)](https://github.com/azu/ast-source/actions?query=workflow%3A"test")
 
 AST helper to transform source code.
 
